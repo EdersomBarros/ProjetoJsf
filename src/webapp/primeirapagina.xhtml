@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
 	<title>Olá JSF</title>
 </h:head>
 <h:body>
+
 	<h:form id="formPessoa">
 	
 		<h1>Pessoas</h1>
@@ -26,7 +28,36 @@
 		
 		<h:commandButton value="Salvar" action="#{pessoaBean.salvar}"/>
 		<h:commandButton value="Novo" action="#{pessoaBean.novo}"/>
-
+		<h:commandButton value="Remover" action="#{pessoaBean.remove}"/>
+		
+		<div class="card">
+		<h:dataTable value="#{pessoaBean.pessoas}" var="pessoa">
+			<h:column headerText="Id">
+				<h:outputText value="#{pessoa.id}"/>
+			</h:column>
+			<h:column headerText="Nome">
+				<h:outputText value="#{pessoa.nome}"/>
+			</h:column>
+			<h:column headerText="Sobrenome">
+				<h:outputText value="#{pessoa.sobrenome}"/>
+			</h:column>
+			<h:column headerText="Idade">
+				<h:outputText value="#{pessoa.idade}"/>
+			</h:column>
+			<h:column>
+				<h:commandLink value="Editar">
+					<f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"/>
+				</h:commandLink>
+			</h:column>
+			<h:column>
+				<h:commandLink value="Excluir" action="#{pessoaBean.remove}">
+					<f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"/>
+				</h:commandLink>
+			</h:column>
+		
+		
+		</h:dataTable>
+		</div>
 	</h:form>
 
 </h:body>
