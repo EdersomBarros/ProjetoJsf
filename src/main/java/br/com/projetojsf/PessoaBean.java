@@ -1,38 +1,47 @@
 package br.com.projetojsf;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
+import br.com.dao.DaoGeneric;
+import br.com.entidades.Pessoa;
 
 @SessionScoped
 @ManagedBean(name = "pessoaBean")
 public class PessoaBean {
 
-	private String nome;
+	private Pessoa pessoa = new Pessoa();
+	private DaoGeneric<Pessoa> daoGeneric = new DaoGeneric<Pessoa>();
+	
+	public String salvar() {
 
-	private List<String> nomes = new ArrayList<String>();
-
-	public String addNome() {
-		nomes.add(nome);
+		pessoa = daoGeneric.merge(pessoa);
 		return "";
+
+	}
+	public String novo() {
+		pessoa = new Pessoa();
+		
+		return "";
+		
+		
 	}
 
-	public void setNomes(List<String> nomes) {
-		this.nomes = nomes;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public List<String> getNomes() {
-		return nomes;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
-	public String getNome() {
-		return nome;
+	public DaoGeneric<Pessoa> getDaoGeneric() {
+		return daoGeneric;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDaoGeneric(DaoGeneric<Pessoa> daoGeneric) {
+		this.daoGeneric = daoGeneric;
 	}
-
+	
+	
 }
