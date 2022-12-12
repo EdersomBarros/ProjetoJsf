@@ -66,5 +66,12 @@ public class PessoaBean {
 		return pessoas;
 	}
 	
+	public String logar() {
+		
+		System.out.println(pessoa.getLogin() + " - " + pessoa.getSenha());
+		return "index.jsf";
+		
+	}
+	
 	
 }
