@@ -29,7 +29,17 @@ public class Pessoa implements Serializable {
 
 	private String sexo;
 	private String[] frameworks;
+	private Boolean ativo;
 	
+	
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
 
 	public String[] getFrameworks() {
 		return frameworks;

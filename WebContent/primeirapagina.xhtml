@@ -8,7 +8,7 @@
 	<title>Olá JSF</title>
 </h:head>
 <h:body>
-
+	
 	<h:form id="formPessoa">
 	<h:graphicImage height="120" width="120" library="img" name="jsfJava.png"/>
 	
@@ -46,6 +46,8 @@
 				<f:selectItem itemValue="JSF" />
 			</h:selectManyMenu>
 
+			<h:outputLabel value="Ativo:" />
+			<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}"/>
 			<h:outputLabel/>
 			<h:panelGroup>
 				<h:commandButton value="Salvar" action="#{pessoaBean.salvar}" />
