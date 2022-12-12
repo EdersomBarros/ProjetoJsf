@@ -29,6 +29,13 @@
 		
 		<h:outputLabel value="Idade:" />
 		<h:inputText value="#{pessoaBean.pessoa.idade}" />
+		
+		<h:outputLabel value="Sexo:" />
+		<h:selectOneMenu id="campoSexo" value="#{pessoaBean.pessoa.sexo}" required="true">
+			<f:selectItem itemValue="No" itemLabel="[-Selecionar-]" noSelectionOption="true"/>
+			<f:selectItem itemValue="MASCULINO" itemLabel="Masculino"/>
+			<f:selectItem itemValue="FEMININO" itemLabel="Feminino"/>
+		</h:selectOneMenu>
 			
 			<h:outputLabel/>
 			<h:panelGroup>
@@ -39,8 +46,7 @@
 
 		</h:panelGrid>
 		
-		
-		
+			
 		<div class="card">
 		<h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="3" cellpadding="5">
 			<f:facet name="header">
@@ -61,6 +67,10 @@
 			<h:column >
 				<f:facet name="header">Idade</f:facet>
 				<h:outputText value="#{pessoa.idade}"/>
+			</h:column>
+			<h:column >
+				<f:facet name="header">Sexo</f:facet>
+				<h:outputText value="#{pessoa.sexo}"/>
 			</h:column>
 				<h:column>
 					<f:facet name="header">Editar</f:facet>
