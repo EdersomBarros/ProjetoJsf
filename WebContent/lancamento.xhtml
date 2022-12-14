@@ -18,7 +18,7 @@
 		<h:commandLink value="Trocar Usuários" action="index"
 			style="margin-left:1cm;" />
 	</h:form>
-	<h:form id="formLancamento" style="margin-top:15%; margin-left:40%;">
+	<h:form id="formLancamento" style="margin-top:5%; margin-left:40%;">
 		
 		<h:form>
 			<h:panelGrid columns="2">
@@ -38,11 +38,38 @@
 			<h:panelGroup>
 				<h:commandButton value="Novo" action="#{lancamentoBean.novo}" image="/resources/img/new_add_user_16734.png" title="Novo" style="margin-left:3%;"/>
 				<h:commandButton value="Salvar" action="#{lancamentoBean.salvar}" image="/resources/img/Save.png" title="Salvar" style="margin-left:3%;"/>
-				<h:commandButton value="Remover" action="#{lancamentoBean.remove}" image="/resources/img/delete.png" title="Remover"  style="margin-left:3%;"/>
-				<h:commandButton value="Limpar" type="reset" image="/resources/img/limpar.png" title="Limpar" style="margin-left:3%;"/>
+				<h:commandButton value="Remover" action="#{lancamentoBean.remover}" image="/resources/img/delete.png" title="Remover"  style="margin-left:3%;"/>
+				<h:commandButton value="Limpar" type="reset" image="/resources/img/limpar.png" title="Limpar"/>
 			</h:panelGroup>
 			
 			</h:panelGrid>
+			
+			<h:dataTable value="#{lancamentoBean.lancamentos}" var="lanc" border="3">
+				<f:facet name="header">Lista de Lançamentos</f:facet>
+				<h:column>
+					<f:facet name="header">Id</f:facet>
+					<h:outputLabel value="#{lanc.id}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Nota</f:facet>
+					<h:outputLabel value="#{lanc.numeroNotaFiscal}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Origem</f:facet>
+					<h:outputLabel value="#{lanc.empresaOrigem}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Destino</f:facet>
+					<h:outputLabel value="#{lanc.empresaDestino}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Usuário</f:facet>
+					<h:outputLabel value="#{lanc.usuario.nome}"/>
+				</h:column>
+				
+			
+			</h:dataTable>
 			
 		
 		</h:form>
