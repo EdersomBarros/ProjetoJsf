@@ -33,7 +33,7 @@
 				<h:commandButton value="Novo" action="#{lancamentoBean.novo}" image="/resources/img/new_add_user_16734.png" title="Novo" style="margin-left:5%;"/>
 				<h:commandButton value="Salvar" action="#{lancamentoBean.salvar}" image="/resources/img/Save.png" title="Salvar" style="margin-left:5%;"/>
 				<h:commandButton value="Remover" action="#{lancamentoBean.remover}" image="/resources/img/delete.png" title="Remover"  style="margin-left:5%;" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}"/>
-				<h:commandButton value="Limpar" type="reset" image="/resources/img/ccleaner.png" title="Limpar" style="margin-left:5%;"/>
+				<h:commandButton value="Limpar" action="#{lancamentoBean.novo}" image="/resources/img/ccleaner.png" title="Limpar" style="margin-left:5%;"/>
 			</h:panelGroup>
 			
 			</h:panelGrid>

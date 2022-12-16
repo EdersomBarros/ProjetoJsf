@@ -39,10 +39,18 @@ public class PessoaBean {
 		context.addMessage(null, message);
 	}
 	public String novo() {
+		/*Executa algum processo antes de novo*/
 		pessoa = new Pessoa();
 		
 		return "";		
 	}
+	public String limpar() {
+		/*Executa algum processo antes de limpar*/
+		pessoa = new Pessoa();
+		
+		return "";		
+	}
+	
 	
 	public String remove() {
 		
