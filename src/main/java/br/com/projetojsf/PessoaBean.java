@@ -15,6 +15,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
 
 import com.google.gson.Gson;
 
@@ -32,6 +34,7 @@ public class PessoaBean {
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 	
 	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl();
+	private List<SelectItem> estados;
 	
 	public String salvar() {
 
@@ -68,6 +71,33 @@ public class PessoaBean {
 		carregarPessoas();
 		return "";		
 	}
+	
+	public String desLogar() {
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = context.getExternalContext();
+		externalContext.getSessionMap().remove("usuarioLogado");
+		
+		HttpServletRequest httpServletRequest =  (HttpServletRequest) 
+				context.getCurrentInstance()
+				.getExternalContext()
+				.getRequest();
+		
+		httpServletRequest.getSession().invalidate();
+		
+		return "index.jsf";
+		
+	}
+	public List<SelectItem> getEstados(){
+		estados = iDaoPessoa.listaEstados();
+		return estados; 
+	}
+	public void carregaCidades(AjaxBehaviorEvent event) {
+		
+		System.out.println(event.getComponent().getAttributes().get("submittedValue"));
+	}
+	
+	
 	@PostConstruct
 	public void carregarPessoas() {
 

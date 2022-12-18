@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui = "http://java.sun.com/jsf/facelets">
+	xmlns:ui = "http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
 	<title>Cadastro de Usuário</title>
@@ -27,16 +28,16 @@
 
 			<h:outputLabel value="Nome:" />
 			<h:inputText value="#{pessoaBean.pessoa.nome}" required="true"
-				requiredMessage="Informe o nome do usuário"
+				requiredMessage="Informe o nome do usuário" pt:placeholder="Informe o Nome"
 				validatorMessage="Nome tem que ser no mínimo 5 letras">
 				<f:validateLength minimum="5" maximum="30" />
 			</h:inputText>
 
 			<h:outputLabel value="Sobrenome:" />
-			<h:inputText value="#{pessoaBean.pessoa.sobrenome}" />
+			<h:inputText value="#{pessoaBean.pessoa.sobrenome}" pt:placeholder="Informe o Sobrenome"/>
 
 			<h:outputLabel value="Idade:" />
-			<h:inputText value="#{pessoaBean.pessoa.idade}" />
+			<h:inputText value="#{pessoaBean.pessoa.idade}" pt:placeholder="Informe a idade"/>
 
 			<h:outputLabel value="Sexo:" />
 			<h:selectOneMenu id="campoSexo" value="#{pessoaBean.pessoa.sexo}"
@@ -65,20 +66,30 @@
 			</h:selectManyMenu>
 			
 			<h:outputLabel value="CEP:" />
-			<h:inputText value="#{pessoaBean.pessoa.cep}">
-			
-				<f:ajax event="blur" execute="@this" listener="#{pessoaBean.pesquisaCep}"/>
-			
+			<h:inputText value="#{pessoaBean.pessoa.cep}" pt:placeholder="Informe o CEP">			
+				<f:ajax event="blur" execute="@this" listener="#{pessoaBean.pesquisaCep}" 
+				render="logradouro complemento bairro localidade uf"/>			
 			</h:inputText>
+			<h:outputLabel value="Logradouro:" />
+			<h:inputText value="#{pessoaBean.pessoa.logradouro}" id="logradouro"/>
+			<h:outputLabel value="Complemento:" />
+			<h:inputText value="#{pessoaBean.pessoa.complemento}" id="complemento"/>
+			<h:outputLabel value="Bairro" />
+			<h:inputText value="#{pessoaBean.pessoa.bairro}" id="bairro"/>
+			<h:outputLabel value="Localidade" />
+			<h:inputText value="#{pessoaBean.pessoa.localidade}" id="localidade"/>
+			<h:outputLabel value="UF" />
+			<h:inputText value="#{pessoaBean.pessoa.uf}" id="uf"/>
+			
 
 			<h:outputLabel value="Ativo:" />
 			<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" />
 
 			<h:outputText value="Login" />
-			<h:inputText value="#{pessoaBean.pessoa.login}" />
+			<h:inputText value="#{pessoaBean.pessoa.login}" pt:placeholder="Login"/>
 
 			<h:outputText value="Senha" />
-			<h:inputSecret value="#{pessoaBean.pessoa.senha}" />
+			<h:inputSecret value="#{pessoaBean.pessoa.senha}" pt:placeholder="Senha"/>
 
 			<h:outputLabel value="Perfil:" />
 			<h:selectOneMenu id="perfil" value="#{pessoaBean.pessoa.perfilUser}"
@@ -106,6 +117,12 @@
 				<f:selectItem itemValue="4" itemLabel="C#" />
 			</h:selectManyCheckbox>
 
+			<h:outputLabel value="Estados:" />
+				<h:selectOneMenu value="#{pessoaBean.pessoa.estados}" immediate="true">
+				<f:selectItem itemLabel="--[Selecionar]--" noSelectionOption="true" />
+					<f:selectItems value="#{pessoaBean.estados}" var="est" itemValue="#{est.id}"/>
+					<f:ajax event="change" execute="@this" listener="#{pessoaBean.carregaCidades}"/>
+				</h:selectOneMenu>
 
 			<h:outputLabel />
 			<h:panelGroup>
