@@ -1,11 +1,17 @@
 package br.com.projetojsf;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -17,7 +23,10 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+import javax.xml.bind.DatatypeConverter;
 
 import com.google.gson.Gson;
 
@@ -41,7 +50,34 @@ public class PessoaBean {
 	private List<SelectItem> estados;
 	private List<SelectItem> cidades;
 	
-	public String salvar() {
+	private Part arquivofoto;
+	
+	
+	public String salvar() throws IOException {
+		/*Processar imagem*/
+		byte[]  imagemByte = getByte(arquivofoto.getInputStream());
+		pessoa.setFotoIconBase64Original(imagemByte);
+		/*transformar BufferedImage*/
+		BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imagemByte));
+		/*Pega o tipo da imagem*/
+		int type = bufferedImage.getType() == 0? BufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
+		int largura = 200;
+		int altura = 200;
+		/*Criar a miniatura*/
+		BufferedImage resizedImage = new BufferedImage(altura, largura, type);
+		Graphics2D g = resizedImage.createGraphics();
+		g.drawImage(bufferedImage, 0, 0, largura, altura, null);
+		g.dispose();
+		/*Escrever novamente a imagem em tamanho menor*/
+		ByteArrayOutputStream boas = new ByteArrayOutputStream();
+		String extensao = arquivofoto.getContentType().split("\\/")[1];/*image/png*/
+		ImageIO.write(resizedImage, extensao, boas);
+		
+		String miniImagem = "data:" + arquivofoto.getContentType() + ";Base64," + DatatypeConverter
+				.printBase64Binary(boas.toByteArray());
+		/*Processar imagem*/
+		pessoa.setFotoIconBase64(miniImagem);
+		pessoa.setExtensao(extensao);
 
 		pessoa = daoGeneric.merge(pessoa);
 		carregarPessoas();
@@ -76,6 +112,25 @@ public class PessoaBean {
 		carregarPessoas();
 		return "";		
 	}
+	public void editar() {
+		if (pessoa.getCidades() != null) {
+			
+			Estados estado = pessoa.getCidades().getEstados();
+			pessoa.setEstados(estado);
+			
+			List<Cidades> cidades = JPAUtil.getEntityManager()
+					.createQuery("from Cidades where estados.id = " + 
+					 estado.getId())
+					.getResultList();
+			List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
+			for (Cidades cidade : cidades) {
+				selectItemsCidade.add(new SelectItem(cidade, cidade.getNome()));
+			}
+			setCidades(selectItemsCidade);
+		}
+		
+		
+	}
 	
 	public String desLogar() {
 		
@@ -108,9 +163,9 @@ public class PessoaBean {
 				pessoa.setEstados(estado);
 
 				List<Cidades> cidades = JPAUtil.getEntityManager()
-						.createQuery("from Cidades where estados.id = " + 
-						 estado.getId())
-						.getResultList();
+										.createQuery("from Cidades where estados.id = " + 
+										 estado.getId())
+										.getResultList();
 				List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
 				for (Cidades cidade : cidades) {
 					selectItemsCidade.add(new SelectItem(cidade, cidade.getNome()));
@@ -119,6 +174,27 @@ public class PessoaBean {
 
 			}
 		}
+	/*Método que converte array de bytes*/
+	private byte[] getByte(InputStream is) throws IOException{
+		
+		int len;
+		int size = 1024;
+		byte[] buf = null;
+		if (is instanceof ByteArrayInputStream) {
+			size = is.available();
+			buf = new byte[size];
+			len = is.read(buf,0,size);
+		}else {
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			buf = new byte[size];
+			while ((len = is.read(buf,0,size)) != -1) {
+				bos.write(buf,0,len);
+			}
+			buf=bos.toByteArray();
+		}
+		return buf;
+		
+	}
 	
 	
 	public void setCidades(List<SelectItem> cidades) {
@@ -136,7 +212,12 @@ public class PessoaBean {
 
 	}
 	
-
+	public Part getArquivofoto() {
+		return arquivofoto;
+	}
+	public void setArquivofoto(Part arquivofoto) {
+		this.arquivofoto = arquivofoto;
+	}
 	public Pessoa getPessoa() {
 		return pessoa;
 	}

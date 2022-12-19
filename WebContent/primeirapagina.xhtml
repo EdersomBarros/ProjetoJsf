@@ -12,7 +12,7 @@
 <h:body>
 		<ui:include src="/menu.xhtml"/>
 
-	<h:form id="formPessoa"
+	<h:form id="formPessoa" enctype="multipart/form-data"
 		rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
 		<h:graphicImage height="120" width="120" library="img"
 			name="jsfJava.png" />
@@ -25,6 +25,8 @@
 
 			<h:outputLabel value="Id:" />
 			<h:inputText value="#{pessoaBean.pessoa.id}" readonly="true" />
+			<h:outputLabel value="Foto:"/>
+			<h:inputFile id="foto" value="#{pessoaBean.arquivofoto}"> </h:inputFile>
 
 			<h:outputLabel value="Nome:" />
 			<h:inputText value="#{pessoaBean.pessoa.nome}" required="true"
@@ -187,7 +189,7 @@
 
 			<h:column>
 				<f:facet name="header">Editar</f:facet>
-				<h:commandLink>
+				<h:commandLink title="Editar" immediate="true" action="#{pessoaBean.editar}">
 					<f:setPropertyActionListener value="#{pessoa}"
 						target="#{pessoaBean.pessoa}" />
 					<h:graphicImage value="/resources/img/edit.png" title="Editar" />
