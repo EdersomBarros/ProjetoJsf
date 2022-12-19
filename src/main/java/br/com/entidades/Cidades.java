@@ -70,6 +70,5 @@ public class Cidades implements Serializable{
 	}
 	
 	
-	
 
 }

@@ -12,6 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -21,7 +22,10 @@ import javax.servlet.http.HttpServletRequest;
 import com.google.gson.Gson;
 
 import br.com.dao.DaoGeneric;
+import br.com.entidades.Cidades;
+import br.com.entidades.Estados;
 import br.com.entidades.Pessoa;
+import br.com.jpautil.JPAUtil;
 import br.com.repository.IDaoPessoa;
 import br.com.repository.IDaoPessoaImpl;
 
@@ -35,6 +39,7 @@ public class PessoaBean {
 	
 	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl();
 	private List<SelectItem> estados;
+	private List<SelectItem> cidades;
 	
 	public String salvar() {
 
@@ -92,9 +97,35 @@ public class PessoaBean {
 		estados = iDaoPessoa.listaEstados();
 		return estados; 
 	}
+
 	public void carregaCidades(AjaxBehaviorEvent event) {
-		
-		System.out.println(event.getComponent().getAttributes().get("submittedValue"));
+
+		Estados estado = (Estados) ((HtmlSelectOneMenu)event.getSource()).getValue();
+
+
+			if (estado != null) {
+
+				pessoa.setEstados(estado);
+
+				List<Cidades> cidades = JPAUtil.getEntityManager()
+						.createQuery("from Cidades where estados.id = " + 
+						 estado.getId())
+						.getResultList();
+				List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
+				for (Cidades cidade : cidades) {
+					selectItemsCidade.add(new SelectItem(cidade, cidade.getNome()));
+				}
+				setCidades(selectItemsCidade);
+
+			}
+		}
+	
+	
+	public void setCidades(List<SelectItem> cidades) {
+		this.cidades = cidades;
+	}
+	public List<SelectItem> getCidades() {
+		return cidades;
 	}
 	
 	
