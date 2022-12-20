@@ -3,14 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui = "http://java.sun.com/jsf/facelets"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
 	<title>Cadastro de Usuário</title>
 </h:head>
 <h:body>
-		<ui:include src="/menu.xhtml"/>
+	<ui:include src="/menu.xhtml" />
 
 	<h:form id="formPessoa" enctype="multipart/form-data"
 		rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
@@ -25,21 +25,25 @@
 
 			<h:outputLabel value="Id:" />
 			<h:inputText value="#{pessoaBean.pessoa.id}" readonly="true" />
-			<h:outputLabel value="Foto:"/>
-			<h:inputFile id="foto" value="#{pessoaBean.arquivofoto}"> </h:inputFile>
+			<h:outputLabel value="Foto:" />
+			<h:inputFile id="foto" value="#{pessoaBean.arquivofoto}">
+			</h:inputFile>
 
 			<h:outputLabel value="Nome:" />
 			<h:inputText value="#{pessoaBean.pessoa.nome}" required="true"
-				requiredMessage="Informe o nome do usuário" pt:placeholder="Informe o Nome"
+				requiredMessage="Informe o nome do usuário"
+				pt:placeholder="Informe o Nome"
 				validatorMessage="Nome tem que ser no mínimo 5 letras">
 				<f:validateLength minimum="5" maximum="30" />
 			</h:inputText>
 
 			<h:outputLabel value="Sobrenome:" />
-			<h:inputText value="#{pessoaBean.pessoa.sobrenome}" pt:placeholder="Informe o Sobrenome"/>
+			<h:inputText value="#{pessoaBean.pessoa.sobrenome}"
+				pt:placeholder="Informe o Sobrenome" />
 
 			<h:outputLabel value="Idade:" />
-			<h:inputText value="#{pessoaBean.pessoa.idade}" pt:placeholder="Informe a idade"/>
+			<h:inputText value="#{pessoaBean.pessoa.idade}"
+				pt:placeholder="Informe a idade" />
 
 			<h:outputLabel value="Sexo:" />
 			<h:selectOneMenu id="campoSexo" value="#{pessoaBean.pessoa.sexo}"
@@ -66,32 +70,37 @@
 				<f:selectItem itemValue="PrimeFaces" />
 				<f:selectItem itemValue="JSF" />
 			</h:selectManyMenu>
-			
+
 			<h:outputLabel value="CEP:" />
-			<h:inputText value="#{pessoaBean.pessoa.cep}" pt:placeholder="Informe o CEP">			
-				<f:ajax event="blur" execute="@this" listener="#{pessoaBean.pesquisaCep}" 
-				render="logradouro complemento bairro localidade uf"/>			
+			<h:inputText value="#{pessoaBean.pessoa.cep}"
+				pt:placeholder="Informe o CEP">
+				<f:ajax event="blur" execute="@this"
+					listener="#{pessoaBean.pesquisaCep}"
+					render="logradouro complemento bairro localidade uf" />
 			</h:inputText>
 			<h:outputLabel value="Logradouro:" />
-			<h:inputText value="#{pessoaBean.pessoa.logradouro}" id="logradouro"/>
+			<h:inputText value="#{pessoaBean.pessoa.logradouro}" id="logradouro" />
 			<h:outputLabel value="Complemento:" />
-			<h:inputText value="#{pessoaBean.pessoa.complemento}" id="complemento"/>
+			<h:inputText value="#{pessoaBean.pessoa.complemento}"
+				id="complemento" />
 			<h:outputLabel value="Bairro" />
-			<h:inputText value="#{pessoaBean.pessoa.bairro}" id="bairro"/>
+			<h:inputText value="#{pessoaBean.pessoa.bairro}" id="bairro" />
 			<h:outputLabel value="Localidade" />
-			<h:inputText value="#{pessoaBean.pessoa.localidade}" id="localidade"/>
+			<h:inputText value="#{pessoaBean.pessoa.localidade}" id="localidade" />
 			<h:outputLabel value="UF" />
-			<h:inputText value="#{pessoaBean.pessoa.uf}" id="uf"/>
-			
+			<h:inputText value="#{pessoaBean.pessoa.uf}" id="uf" />
+
 
 			<h:outputLabel value="Ativo:" />
 			<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" />
 
 			<h:outputText value="Login" />
-			<h:inputText value="#{pessoaBean.pessoa.login}" pt:placeholder="Login"/>
+			<h:inputText value="#{pessoaBean.pessoa.login}"
+				pt:placeholder="Login" />
 
 			<h:outputText value="Senha" />
-			<h:inputSecret value="#{pessoaBean.pessoa.senha}" pt:placeholder="Senha"/>
+			<h:inputSecret value="#{pessoaBean.pessoa.senha}"
+				pt:placeholder="Senha" />
 
 			<h:outputLabel value="Perfil:" />
 			<h:selectOneMenu id="perfil" value="#{pessoaBean.pessoa.perfilUser}"
@@ -120,28 +129,31 @@
 			</h:selectManyCheckbox>
 
 			<h:outputLabel value="Estados:" />
-				<h:selectOneMenu value="#{pessoaBean.pessoa.estados}" immediate="true" id="comboEstados"
-					converter="estadoConverter">
+			<h:selectOneMenu value="#{pessoaBean.pessoa.estados}"
+				immediate="true" id="comboEstados" converter="estadoConverter">
 				<f:selectItem itemLabel="--[Selecionar]--" noSelectionOption="true" />
-					<f:selectItems value="#{pessoaBean.estados}" var="est" itemValue="#{est.id}"/>
-					<f:ajax event="change" execute="@this" render="comboCidade"
-					 listener="#{pessoaBean.carregaCidades}"/>
-				</h:selectOneMenu>
+				<f:selectItems value="#{pessoaBean.estados}" var="est"
+					itemValue="#{est.id}" />
+				<f:ajax event="change" execute="@this" render="comboCidade"
+					listener="#{pessoaBean.carregaCidades}" />
+			</h:selectOneMenu>
 
 			<h:outputLabel value="Cidades:" />
-			<h:selectOneMenu value="#{pessoaBean.pessoa.cidades}" id="comboCidade" immediate="true"
-				converter="cidadeConverter">
+			<h:selectOneMenu value="#{pessoaBean.pessoa.cidades}"
+				id="comboCidade" immediate="true" converter="cidadeConverter">
 				<f:selectItem itemLabel="--[Selecionar]--" noSelectionOption="true" />
 				<f:selectItems value="#{pessoaBean.cidades}" />
 			</h:selectOneMenu>
 
 			<h:outputLabel />
 			<h:panelGroup>
-				<h:commandButton value="Novo" id="botaoNovo" action="#{pessoaBean.novo}"
-					image="/resources/img/new_add_user_16734.png" title="Novo" style="margin-left:0.5cm;">
-					<f:ajax execute="botaoNovo" render="@form"/>
+				<h:commandButton value="Novo" id="botaoNovo"
+					action="#{pessoaBean.novo}"
+					image="/resources/img/new_add_user_16734.png" title="Novo"
+					style="margin-left:0.5cm;">
+					<f:ajax execute="botaoNovo" render="@form" />
 				</h:commandButton>
-				
+
 				<h:commandButton value="Salvar" action="#{pessoaBean.salvar}"
 					image="/resources/img/Save.png" title="Salvar"
 					style="margin-left:1cm;" />
@@ -149,10 +161,10 @@
 					image="/resources/img/delete.png" title="Remover"
 					rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}"
 					style="margin-left:1cm;" />
-				<h:commandButton value="Limpar" id="botaoLimpar" action="#{pessoaBean.limpar}"
-					image="/resources/img/ccleaner.png" title="Limpar"
-					style="margin-left:1cm;" >
-					<f:ajax execute="botaoLimpar" render="@form"/>	
+				<h:commandButton value="Limpar" id="botaoLimpar"
+					action="#{pessoaBean.limpar}" image="/resources/img/ccleaner.png"
+					title="Limpar" style="margin-left:1cm;">
+					<f:ajax execute="botaoLimpar" render="@form" />
 				</h:commandButton>
 			</h:panelGroup>
 
@@ -161,8 +173,7 @@
 	</h:form>
 
 	<h:form id="formTable">
-		<h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="3"
-			cellpadding="5">
+		<h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="3"	cellpadding="5">
 			<f:facet name="header">
 				Lista de Usuários Cadastradas
 			</f:facet>
@@ -173,6 +184,14 @@
 			<h:column>
 				<f:facet name="header">Nomes</f:facet>
 				<h:outputText value="#{pessoa.nome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Foto</f:facet>
+				<h:commandLink actionListener="#{pessoaBean.download}">
+					<h:graphicImage width="60" height="60"
+						value="#{pessoa.fotoIconBase64}" />
+					<f:param name="fileDownloadId" value="#{pessoa.id}" />
+				</h:commandLink>
 			</h:column>
 			<h:column>
 				<f:facet name="header">Sobrenomes</f:facet>
@@ -189,7 +208,8 @@
 
 			<h:column>
 				<f:facet name="header">Editar</f:facet>
-				<h:commandLink title="Editar" immediate="true" action="#{pessoaBean.editar}">
+				<h:commandLink title="Editar" immediate="true"
+					action="#{pessoaBean.editar}">
 					<f:setPropertyActionListener value="#{pessoa}"
 						target="#{pessoaBean.pessoa}" />
 					<h:graphicImage value="/resources/img/edit.png" title="Editar" />
