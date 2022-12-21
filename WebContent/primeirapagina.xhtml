@@ -31,8 +31,8 @@
 
 			<h:outputLabel value="Nome:" />
 			<h:inputText value="#{pessoaBean.pessoa.nome}" required="true"
-				requiredMessage="Informe o nome do usuário"
-				pt:placeholder="Informe o Nome"
+				requiredMessage="Informe o nome do usuário" 
+				pt:placeholder="Informe o Nome" valueChangeListener="#{pessoaBean.mudancaDeValor}"
 				validatorMessage="Nome tem que ser no mínimo 5 letras">
 				<f:validateLength minimum="5" maximum="30" />
 			</h:inputText>
@@ -44,6 +44,14 @@
 			<h:outputLabel value="Idade:" />
 			<h:inputText value="#{pessoaBean.pessoa.idade}"
 				pt:placeholder="Informe a idade" />
+				
+			<h:outputLabel value="CPF:" />
+			<h:inputText value="#{pessoaBean.pessoa.cpf}"
+				pt:placeholder="Informe o CPF" />
+								
+			<h:outputLabel value="Título Eleit.:" />
+			<h:inputText value="#{pessoaBean.pessoa.tituloEleitor}"
+				pt:placeholder="Informe o Título de Eleitor" />
 
 			<h:outputLabel value="Sexo:" />
 			<h:selectOneMenu id="campoSexo" value="#{pessoaBean.pessoa.sexo}"
@@ -155,7 +163,7 @@
 				</h:commandButton>
 
 				<h:commandButton value="Salvar" action="#{pessoaBean.salvar}"
-					image="/resources/img/Save.png" title="Salvar"
+					image="/resources/img/Save.png" title="Salvar" actionListener="#{pessoaBean.registraLog}"
 					style="margin-left:1cm;" />
 				<h:commandButton value="Remover" action="#{pessoaBean.remove}"
 					image="/resources/img/delete.png" title="Remover"

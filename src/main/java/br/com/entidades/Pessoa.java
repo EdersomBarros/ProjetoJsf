@@ -16,9 +16,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.br.CPF;
+import org.hibernate.validator.constraints.br.TituloEleitoral;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -28,15 +33,27 @@ public class Pessoa implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
+	
+	@NotEmpty
+	@Size(min = 5, max = 10, message = "Nome deve ter entre 5 a 10 letras")
 	private String nome;
+	
 	@NotEmpty(message = "Sobrenome deve ser Informado")
 	@NotNull(message = "Sobrenome deve ser Informado")
 	private String sobrenome;
+	
+	@DecimalMax(value = "60", message = "Idade deve ser menor que 60")
+	@DecimalMin(value = "10", message = "Idade deve ser maior que 10")
 	private Integer idade;
 
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento = new Date();
+	
+	@CPF(message = "CPF Inválido")
+	private String cpf;
+	
+	@TituloEleitoral(message = "Título de Eleitor Inválido")
+	private String tituloEleitor;
 
 	private String sexo;
 	private String[] frameworks;
@@ -67,6 +84,19 @@ public class Pessoa implements Serializable {
 	
 	
 	
+	
+	public String getCpf() {
+		return cpf;
+	}
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	public String getTituloEleitor() {
+		return tituloEleitor;
+	}
+	public void setTituloEleitor(String tituloEleitor) {
+		this.tituloEleitor = tituloEleitor;
+	}
 	public String getFotoIconBase64() {
 		return fotoIconBase64;
 	}

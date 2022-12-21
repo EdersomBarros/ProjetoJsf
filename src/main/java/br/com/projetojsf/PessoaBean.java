@@ -23,6 +23,7 @@ import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -87,6 +88,17 @@ public class PessoaBean {
 		return "";
 
 	}
+	public void registraLog() {
+		
+		System.out.println("Método registraLog");
+	}
+	public void mudancaDeValor(ValueChangeEvent evento) {
+		System.out.println("valor antigo" + evento.getOldValue());
+		System.out.println("valor novo" + evento.getNewValue());
+		
+		
+	}
+	
 	private void mostrarMsg(String msg) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		FacesMessage message = new FacesMessage(msg);

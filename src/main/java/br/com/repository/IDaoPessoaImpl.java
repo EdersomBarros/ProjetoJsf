@@ -4,22 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import br.com.entidades.Estados;
 import br.com.entidades.Pessoa;
 import br.com.jpautil.JPAUtil;
-
+@Named
 public class IDaoPessoaImpl implements IDaoPessoa {
-	
+	@Inject
+	private EntityManager entityManager;
 
 	@Override
 	public Pessoa consultarUsuario(String login, String senha) {
 		
 		Pessoa pessoa = null;
 		
-		EntityManager entityManager = JPAUtil.getEntityManager();
+		//EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		
