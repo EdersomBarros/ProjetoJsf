@@ -16,6 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -27,6 +30,8 @@ public class Pessoa implements Serializable {
 	private Long id;
 
 	private String nome;
+	@NotEmpty(message = "Sobrenome deve ser Informado")
+	@NotNull(message = "Sobrenome deve ser Informado")
 	private String sobrenome;
 	private Integer idade;
 

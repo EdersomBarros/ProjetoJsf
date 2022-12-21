@@ -150,7 +150,7 @@
 				<h:commandButton value="Novo" id="botaoNovo"
 					action="#{pessoaBean.novo}"
 					image="/resources/img/new_add_user_16734.png" title="Novo"
-					style="margin-left:0.5cm;">
+					style= "margin-left:0.5cm;" immediate="true">
 					<f:ajax execute="botaoNovo" render="@form" />
 				</h:commandButton>
 
@@ -163,7 +163,7 @@
 					style="margin-left:1cm;" />
 				<h:commandButton value="Limpar" id="botaoLimpar"
 					action="#{pessoaBean.limpar}" image="/resources/img/ccleaner.png"
-					title="Limpar" style="margin-left:1cm;">
+					title="Limpar" style="margin-left:1cm;" immediate="true">
 					<f:ajax execute="botaoLimpar" render="@form" />
 				</h:commandButton>
 			</h:panelGroup>
@@ -219,10 +219,10 @@
 
 			<h:column rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
 				<f:facet name="header">Excluir</f:facet>
-				<h:commandLink action="#{pessoaBean.remove}">
+				<h:commandLink action="#{pessoaBean.remove}" title="Excluir" immediate="true">
 					<f:setPropertyActionListener value="#{pessoa}"
 						target="#{pessoaBean.pessoa}" />
-					<h:graphicImage value="/resources/img/delete.png" title="Excluir" />
+					<h:graphicImage value="/resources/img/delete.png"  />
 				</h:commandLink>
 			</h:column>
 
