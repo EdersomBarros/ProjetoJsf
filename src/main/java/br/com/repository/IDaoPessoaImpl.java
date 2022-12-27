@@ -30,11 +30,16 @@ public class IDaoPessoaImpl implements IDaoPessoa, Serializable {
 		// EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
-
+		try {
 		pessoa = (Pessoa) entityManager
 				.createQuery("SELECT p FROM Pessoa p WHERE p.login = '" + login + "' and p.senha = '" + senha + "'")
 				.getSingleResult();
+		}catch (javax.persistence.NoResultException e) {
+			
+		}
+		
 		entityTransaction.commit();
+		
 		// entityManager.close();
 		return pessoa;
 	}

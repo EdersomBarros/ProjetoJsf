@@ -281,6 +281,8 @@ public class PessoaBean implements Serializable {
 
 			return "primeirapagina.jsf";
 
+		}else {
+			FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage("Usuário Não Encontrado"));;
 		}
 		return "index.jsf";
 
