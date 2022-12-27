@@ -1,32 +1,35 @@
 package br.com.jpautil;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+@ApplicationScoped
 public class JPAUtil {
-	
-	private static EntityManagerFactory factory = null;
-	
-	static {
+
+	private EntityManagerFactory factory = null;
+
+	public JPAUtil() {
+
 		if (factory == null) {
-			
+
 			factory = Persistence.createEntityManagerFactory("projetojsf");
 		}
 	}
-	
-	public static EntityManager getEntityManager() {
-		
-		return factory.createEntityManager();		
+
+	@Produces
+	@RequestScoped
+	public EntityManager getEntityManager() {
+
+		return factory.createEntityManager();
 	}
-	
-	public static Object getPrimareKey(Object entity) {
-				
+
+	public Object getPrimareKey(Object entity) {
+
 		return factory.getPersistenceUnitUtil().getIdentifier(entity);
 	}
-	
-	
-	
-	
-	
+
 }

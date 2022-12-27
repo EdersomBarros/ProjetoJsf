@@ -2,15 +2,14 @@ package br.com.converter;
 
 import java.io.Serializable;
 
+import javax.enterprise.inject.spi.CDI;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 import br.com.entidades.Estados;
-import br.com.jpautil.JPAUtil;
 
 @FacesConverter(forClass = Estados.class, value = "estadoConverter")
 public class EstadoConverter implements Converter, Serializable {
@@ -20,9 +19,9 @@ public class EstadoConverter implements Converter, Serializable {
 	@Override /* retorna objeto inteiro */
 	public Object getAsObject(FacesContext context, UIComponent component, String codigoEstado) {
 
-		EntityManager entityManager = JPAUtil.getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
+		// EntityManager entityManager = jpaUtil.getEntityManager();
+		EntityManager entityManager = CDI.current().select(EntityManager.class).get();
+		// transaction.begin();
 
 		Estados estados = (Estados) entityManager.find(Estados.class, Long.parseLong(codigoEstado));
 

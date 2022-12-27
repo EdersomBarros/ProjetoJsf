@@ -12,20 +12,19 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
-public class Lancamento implements Serializable{
-	
-	
+public class Lancamento implements Serializable {
+
 	private static final long serialVersionUID = 7123412480829197597L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	private String numeroNotaFiscal;
-	
+
 	private String empresaOrigem;
-	
+
 	private String empresaDestino;
-	
+
 	@ManyToOne(optional = false)
 	@org.hibernate.annotations.ForeignKey(name = "usuario_fk")
 	private Pessoa usuario;
@@ -86,7 +85,5 @@ public class Lancamento implements Serializable{
 		Lancamento other = (Lancamento) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
 
 }

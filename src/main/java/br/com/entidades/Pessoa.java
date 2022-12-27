@@ -33,25 +33,25 @@ public class Pessoa implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@NotEmpty
 	@Size(min = 5, max = 10, message = "Nome deve ter entre 5 a 10 letras")
 	private String nome;
-	
+
 	@NotEmpty(message = "Sobrenome deve ser Informado")
 	@NotNull(message = "Sobrenome deve ser Informado")
 	private String sobrenome;
-	
+
 	@DecimalMax(value = "60", message = "Idade deve ser menor que 60")
 	@DecimalMin(value = "10", message = "Idade deve ser maior que 10")
 	private Integer idade;
 
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento = new Date();
-	
+
 	@CPF(message = "CPF Inválido")
 	private String cpf;
-	
+
 	@TituloEleitoral(message = "Título de Eleitor Inválido")
 	private String tituloEleitor;
 
@@ -69,58 +69,67 @@ public class Pessoa implements Serializable {
 	private String bairro;
 	private String localidade;
 	private String uf;
-	
-	@Transient/*não fica persistindo no banco */
+
+	@Transient /* não fica persistindo no banco */
 	private Estados estados;
 	@ManyToOne
 	private Cidades cidades;
-	@Column(columnDefinition = "text")/*tipo text grava arquivos em base 64*/
+	@Column(columnDefinition = "text") /* tipo text grava arquivos em base 64 */
 	private String fotoIconBase64;
-	
-	private String extensao;/*extensão png...*/
-	@Lob/*Gravar arquivos no banco de dados*/
+
+	private String extensao;/* extensão png... */
+	@Lob /* Gravar arquivos no banco de dados */
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] fotoIconBase64Original;
-	
-	
-	
-	
+
 	public String getCpf() {
 		return cpf;
 	}
+
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+
 	public String getTituloEleitor() {
 		return tituloEleitor;
 	}
+
 	public void setTituloEleitor(String tituloEleitor) {
 		this.tituloEleitor = tituloEleitor;
 	}
+
 	public String getFotoIconBase64() {
 		return fotoIconBase64;
 	}
+
 	public void setFotoIconBase64(String fotoIconBase64) {
 		this.fotoIconBase64 = fotoIconBase64;
 	}
+
 	public String getExtensao() {
 		return extensao;
 	}
+
 	public void setExtensao(String extensao) {
 		this.extensao = extensao;
 	}
+
 	public byte[] getFotoIconBase64Original() {
 		return fotoIconBase64Original;
 	}
+
 	public void setFotoIconBase64Original(byte[] fotoIconBase64Original) {
 		this.fotoIconBase64Original = fotoIconBase64Original;
 	}
+
 	public void setCidades(Cidades cidades) {
 		this.cidades = cidades;
 	}
+
 	public Cidades getCidades() {
 		return cidades;
 	}
+
 	public void setEstados(Estados estados) {
 		this.estados = estados;
 	}

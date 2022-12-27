@@ -12,51 +12,57 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Cidades implements Serializable{
+public class Cidades implements Serializable {
 
 	private static final long serialVersionUID = -5757646199428679621L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	private String nome;
 	private String sigla;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	private Estados estados;
-	
-	
-	
+
 	public Estados getEstados() {
 		return estados;
 	}
+
 	public void setEstados(Estados estados) {
 		this.estados = estados;
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 	public String getSigla() {
 		return sigla;
 	}
+
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -68,7 +74,5 @@ public class Cidades implements Serializable{
 		Cidades other = (Cidades) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
 
 }
