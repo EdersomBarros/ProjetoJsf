@@ -4,11 +4,21 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:b="http://bootsfaces.net/ui">
-		<h:form>
-		
-			<h:commandLink value="Administração" action="primeirapagina" style="margin-left:1cm;" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}"/>
-			<h:commandLink value="Lançamentos" action="lancamento" style="margin-left:1cm;"/>
-			<h:commandLink value="Trocar Usuários" action="#{pessoaBean.desLogar}" style="margin-left:1cm;"/>
-		</h:form>
 	
-</html>	
+<h:form>
+	<b:navBar brand="Menu" fluid="true">
+		<b:navbarLinks>
+			<b:navCommandLink value="Administração" action="primeirapagina"
+				rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}" />
+			<b:navCommandLink value="Lançamentos" action="lancamento" />
+			<b:dropMenu value="Relatórios">
+				<b:navCommandLink value="Rel. Notas" />
+				<b:navCommandLink value="Rel. Usuários" />
+			</b:dropMenu>
+			<b:navCommandLink value="Sair" action="#{pessoaBean.desLogar}" />
+		</b:navbarLinks>
+	</b:navBar>
+
+</h:form>
+
+</html>
