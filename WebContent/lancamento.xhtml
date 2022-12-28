@@ -14,32 +14,49 @@
 	<ui:include src="/menu.xhtml" />
 
 	<b:form id="formLancamento">
-		<b:messages id="msg"/>
+		<b:messages id="msg" />
 
 		<b:panelGrid columns="2">
 			<f:facet name="header">
 				<h:outputText value="Lançamentos" />
 			</f:facet>
-			<h:column>
-				<h:outputLabel value="Id:" />
-				<b:inputText value="#{lancamentoBean.lancamento.id}" readonly="true" />
-			</h:column>
-			<h:column>
-				<h:outputLabel value="Nota:" />
-				<b:inputText value="#{lancamentoBean.lancamento.numeroNotaFiscal}"
-					required-message="Informe o número da Nota" required="true" />
-			</h:column>
-			<h:column>
-				<h:outputLabel value="Origem:" />
-				<b:inputText value="#{lancamentoBean.lancamento.empresaOrigem}"
-					required-message="Informe a Origem" required="true" />
-			</h:column>
-			<h:column>
-				<h:outputLabel value="Destino:" />
-				<b:inputText value="#{lancamentoBean.lancamento.empresaDestino}"
-					required-message="Informe o Destino" required="true" />
-			</h:column>
+			<b:panel>
+				<h:column>
+					<h:outputLabel value="Id:" />
+					<b:inputText value="#{lancamentoBean.lancamento.id}"
+						readonly="true" />
+				</h:column>
+				<h:column>
+					<h:outputLabel value="Nota:" />
+					<b:inputText value="#{lancamentoBean.lancamento.numeroNotaFiscal}"
+						required-message="Informe o número da Nota" required="true" />
+				</h:column>
 
+				<h:column>
+					<h:outputLabel value="Data Inicial:" />
+					<b:datepicker locale="en" required="true" requiredMessage="Data Inicial" 
+					value="#{lancamentoBean.lancamento.dataInicial}"/>
+				</h:column>
+			</b:panel>
+			
+			<b:panel>
+				<h:column>
+					<h:outputLabel value="Origem:" />
+					<b:inputText value="#{lancamentoBean.lancamento.empresaOrigem}"
+						required-message="Informe a Origem" required="true" />
+				</h:column>
+				<h:column>
+					<h:outputLabel value="Destino:" />
+					<b:inputText value="#{lancamentoBean.lancamento.empresaDestino}"
+						required-message="Informe o Destino" required="true" />
+				</h:column>
+				<h:column>
+					<h:outputLabel value="Data Final:" />
+					<b:datepicker locale="en" required="true" requiredMessage="Data Final"
+					value="#{lancamentoBean.lancamento.dataFinal}"/>
+				</h:column>
+
+			</b:panel>
 			<h:column>
 				<h:outputLabel />
 				<h:panelGroup>
@@ -54,14 +71,16 @@
 						style="margin-left:5%;"
 						rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}" />
 					<h:commandButton value="Limpar" action="#{lancamentoBean.novo}"
-						image="/resources/img/limpar.png" title="Limpar" 
+						image="/resources/img/limpar.png" title="Limpar"
 						style="margin-left:5%;" />
 				</h:panelGroup>
 			</h:column>
 		</b:panelGrid>
-		</b:form>
-		
-		<b:form>
+	</b:form>
+	<br/>
+	<br/>
+	<br/>
+	<b:form>
 		<b:dataTable value="#{lancamentoBean.lancamentos}" var="lanc"
 			border="3">
 			<f:facet name="header">Lista de Lançamentos</f:facet>
@@ -97,10 +116,11 @@
 			</h:column>
 			<h:column rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
 				<f:facet name="header">Excluir</f:facet>
-				<h:commandLink action="#{lancamentoBean.remover}" title="Excluir" immediate="true">
+				<h:commandLink action="#{lancamentoBean.remover}" title="Excluir"
+					immediate="true">
 					<f:setPropertyActionListener value="#{lanc}"
 						target="#{lancamentoBean.lancamento}" />
-					<h:graphicImage value="/resources/img/delete.png"  />
+					<h:graphicImage value="/resources/img/delete.png" />
 				</h:commandLink>
 			</h:column>
 
