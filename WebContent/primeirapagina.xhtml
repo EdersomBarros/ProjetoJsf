@@ -19,11 +19,13 @@
 			name="jsfJava.png" />
 
 		<b:messages infoStyle="color: green" />
-		
+
 		<h:panelGrid columns="4">
+
 			<f:facet name="header">
 				<h:outputText value="Cadastro em JSF" />
 			</f:facet>
+
 			<b:column>
 				<h:outputLabel value="Id:" />
 				<b:inputText value="#{pessoaBean.pessoa.id}" readonly="true" />
@@ -34,14 +36,14 @@
 				</h:inputFile>
 			</b:column>
 			<b:column>
-			<h:outputLabel value="Nome:" />
-			<b:inputText value="#{pessoaBean.pessoa.nome}" required="true"
-				requiredMessage="Informe o nome do usuário"
-				pt:placeholder="Informe o Nome"
-				valueChangeListener="#{pessoaBean.mudancaDeValor}"
-				validatorMessage="Nome tem que ser no mínimo 5 letras">
-				<f:validateLength minimum="5" maximum="30" />
-			</b:inputText>
+				<h:outputLabel value="Nome:" />
+				<b:inputText value="#{pessoaBean.pessoa.nome}" required="true"
+					requiredMessage="Informe o nome do usuário"
+					pt:placeholder="Informe o Nome"
+					valueChangeListener="#{pessoaBean.mudancaDeValor}"
+					validatorMessage="Nome tem que ser no mínimo 5 letras">
+					<f:validateLength minimum="5" maximum="30" />
+				</b:inputText>
 			</b:column>
 
 			<b:column>
@@ -62,6 +64,7 @@
 					pt:placeholder="Informe o CPF" />
 			</b:column>
 
+
 			<b:column>
 				<h:outputLabel value="Título Eleit.:" />
 				<b:inputText value="#{pessoaBean.pessoa.tituloEleitor}"
@@ -81,11 +84,9 @@
 
 			<b:column>
 				<h:outputLabel value="Nascimento:" />
-				<b:inputText value="#{pessoaBean.pessoa.dataNascimento}"
-					converterMessage="Data de Nascimento errada">
-					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
-						timeZone="GMT-04:00" />
-				</b:inputText>
+				<b:datepicker locale="en"
+					value="#{pessoaBean.pessoa.dataNascimento}" />
+
 			</b:column>
 
 			<b:column>
@@ -170,14 +171,14 @@
 					<f:selectItems value="#{pessoaBean.cidades}" />
 				</b:selectOneMenu>
 			</b:column>
-			
-		<b:column>
-			<h:outputLabel value="CEP:" />
-			<b:inputText value="#{pessoaBean.pessoa.cep}"
-				pt:placeholder="Informe o CEP">
-				<f:ajax event="blur" execute="@form"
-					listener="#{pessoaBean.pesquisaCep}" render="@form" />
-			</b:inputText>
+
+			<b:column>
+				<h:outputLabel value="CEP:" />
+				<b:inputText value="#{pessoaBean.pessoa.cep}"
+					pt:placeholder="Informe o CEP">
+					<f:ajax event="blur" execute="@form"
+						listener="#{pessoaBean.pesquisaCep}" render="@form" />
+				</b:inputText>
 			</b:column>
 
 			<b:column>
@@ -205,7 +206,9 @@
 				<h:outputLabel value="UF" />
 				<b:inputText value="#{pessoaBean.pessoa.uf}" id="uf" />
 			</b:column>
+
 			<h:outputLabel />
+
 			<h:panelGroup>
 				<h:commandButton value="Novo" id="botaoNovo"
 					action="#{pessoaBean.novo}"
