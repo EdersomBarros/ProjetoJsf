@@ -12,7 +12,7 @@
 				rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}" />
 			<b:navCommandLink value="Lançamentos" action="lancamento" />
 			<b:dropMenu value="Relatórios">
-				<b:navCommandLink value="Rel. Notas" />
+				<b:navCommandLink value="Rel. Notas" action="rellancamento"/>
 				<b:navCommandLink value="Rel. Usuários" />
 			</b:dropMenu>
 			<b:navCommandLink value="Sair" action="#{pessoaBean.desLogar}" />

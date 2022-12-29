@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Relatório de Lançamentos</title>
+</h:head>
+
+<h:body>
+	<ui:include src="/menu.xhtml" />
+
+	<b:form id="formLancamento">
+		<b:messages id="msg" />
+
+		<b:panelGrid columns="2">
+		
+		</b:panelGrid>
+		
+			<b:commandButton value="Buscar"  look="success" 
+			action="#{relLancamento.buscarLancamento}"
+						 title="Buscar"
+						style="width:80px" />
+		
+	</b:form>
+	<br/>
+	<br/>
+	<br/>
+	<b:form>
+		<b:dataTable value="#{relLancamento.lancamentos}" var="lanc"
+			border="3" pdf="true" excel="true">
+			
+			<b:dataTableColumn value="#{lanc.id}" order="asc"/>
+			<b:dataTableColumn value="#{lanc.usuario.nome}" label="Usuário"/>
+			<b:dataTableColumn value="#{lanc.dataInicial}"/>
+			<b:dataTableColumn value="#{lanc.dataFinal}"/>
+
+		</b:dataTable>
+
+
+
+
+	</b:form>
+
+
+</h:body>
+</html>

@@ -237,17 +237,11 @@
 
 	<h:form id="formTable">
 		<b:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="3"
-			cellpadding="5">
-			<f:facet name="header">
-				Lista de Usuários Cadastradas
-			</f:facet>
+			cellpadding="5" caption="Lista de Usuários Cadastrados">
+			
 			<h:column>
 				<f:facet name="header">Id</f:facet>
 				<h:outputText value="#{pessoa.id}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Nomes</f:facet>
-				<h:outputText value="#{pessoa.nome}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Foto</f:facet>
@@ -257,6 +251,11 @@
 					<f:param name="fileDownloadId" value="#{pessoa.id}" />
 				</h:commandLink>
 			</h:column>
+			<h:column>
+				<f:facet name="header">Nomes</f:facet>
+				<h:outputText value="#{pessoa.nome}" />
+			</h:column>
+			
 			<h:column>
 				<f:facet name="header">Sobrenomes</f:facet>
 				<h:outputText value="#{pessoa.sobrenome}" />
