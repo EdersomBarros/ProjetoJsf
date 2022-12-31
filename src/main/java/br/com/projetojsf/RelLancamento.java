@@ -2,6 +2,7 @@ package br.com.projetojsf;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
@@ -19,13 +20,65 @@ public class RelLancamento implements Serializable{
 	private static final long serialVersionUID = -725502281632649908L;
 	
 	private List<Lancamento> lancamentos = new ArrayList<Lancamento>();
+	
+	private Date dataIni;
+	
+	private Date dataFim;
+	
+	private String numNota;
+	
 	@Inject
 	private IDaoLancamento iDaoLancamento;
 	@Inject
 	private DaoGeneric<Lancamento> daoGeneric;
 	
+	
+	
+	
+	
+	public Date getDataIni() {
+		return dataIni;
+	}
+
+
+
+	public void setDataIni(Date dataIni) {
+		this.dataIni = dataIni;
+	}
+
+
+
+	public Date getDataFim() {
+		return dataFim;
+	}
+
+
+
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
+	}
+
+
+
+	public String getNumNota() {
+		return numNota;
+	}
+
+
+
+	public void setNumNota(String numNota) {
+		this.numNota = numNota;
+	}
+
+
 	public void buscarLancamento() {
-		lancamentos  = daoGeneric.getListEntity(Lancamento.class);
+
+		if (dataIni == null && dataFim == null && numNota == null) {
+
+			lancamentos = daoGeneric.getListEntity(Lancamento.class);
+		}else {
+			lancamentos= iDaoLancamento.relatorioLancamento(numNota, dataIni, dataFim);
+		}
 	}
 	
 	

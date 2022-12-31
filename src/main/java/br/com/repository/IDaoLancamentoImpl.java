@@ -1,6 +1,7 @@
 package br.com.repository;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -50,6 +51,13 @@ public class IDaoLancamentoImpl implements IDaoLancamento, Serializable {
 		// entityManager.close();
 
 		return lista;
+	}
+
+	@Override
+	public List<Lancamento> relatorioLancamento(String numNome, Date dataIni, Date dataFim) {
+		System.out.println(numNome + " -- " + dataIni + "---- "+ dataFim);
+		
+		return null;
 	}
 
 }

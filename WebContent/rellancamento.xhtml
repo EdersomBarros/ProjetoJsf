@@ -18,12 +18,27 @@
 
 		<b:panelGrid columns="2">
 		
+		<b:column>
+			<h:outputText value="Data Inicial:"/>
+			<b:datepicker locale="en" value="#{relLancamento.dataIni}"/>
+		</b:column>
+		<b:column>
+			<h:outputText value="Data Fim:"/>
+			<b:datepicker locale="en" value="#{relLancamento.dataFim}"/>
+		</b:column>
+		<b:column>
+			<h:outputText value="Número da Nota:"/>
+			<b:iconAwesome value="shield" rotate="H" />
+			<b:inputText placeholder="Número" value="#{relLancamento.numNota}"/>
+		</b:column>
+		
+		
 		</b:panelGrid>
 		
 			<b:commandButton value="Buscar"  look="success" 
 			action="#{relLancamento.buscarLancamento}"
 						 title="Buscar"
-						style="width:80px" />
+						style="margin-left: 15px;"/>
 		
 	</b:form>
 	<br/>
