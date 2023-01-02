@@ -1,8 +1,11 @@
 package br.com.repository;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.SimpleFormatter;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,6 +22,7 @@ public class IDaoLancamentoImpl implements IDaoLancamento, Serializable {
 	@Inject
 	private EntityManager entityManager;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Lancamento> consultar(Long codUser) {
 		List<Lancamento> lista = null;
@@ -35,6 +39,7 @@ public class IDaoLancamentoImpl implements IDaoLancamento, Serializable {
 		return lista;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Lancamento> consultarLimit10(Long codUser) {
 		List<Lancamento> lista = null;
@@ -53,11 +58,59 @@ public class IDaoLancamentoImpl implements IDaoLancamento, Serializable {
 		return lista;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Lancamento> relatorioLancamento(String numNome, Date dataIni, Date dataFim) {
-		System.out.println(numNome + " -- " + dataIni + "---- "+ dataFim);
+	public List<Lancamento> relatorioLancamento(String numNota, Date dataIni, Date dataFim) {
+
+		List<Lancamento> lancamentos = new ArrayList<Lancamento>();
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select l from Lancamento l ");
 		
-		return null;
+		if (dataIni == null && dataFim == null && numNota != null && !numNota.isEmpty()) {
+
+			sql.append(" where l.numeroNotaFiscal = '").append(numNota.trim()).append("'");
+
+		} else if (numNota == null || (numNota != null && numNota.isEmpty()) && dataIni != null 
+				&& dataFim == null) {
+			
+			String dataIniString = new SimpleDateFormat("yyyy-MM-dd").format(dataIni);
+			
+			sql.append(" where l.dataInicial >= '").append(dataIniString).append("'");
+			
+		} else if (numNota == null || (numNota != null && numNota.isEmpty()) && dataIni == null
+				&& dataFim != null) {
+			
+			String dataFimString = new SimpleDateFormat("yyyy-MM-dd").format(dataFim);
+			
+			sql.append(" where l.dataFinal <= '").append(dataFimString).append("'");
+			
+		}else if (numNota == null || (numNota != null && numNota.isEmpty()) 
+				&& dataIni != null && dataFim != null) {
+			
+			String dataIniString = new SimpleDateFormat("yyyy-MM-dd").format(dataIni);
+			String dataFimString = new SimpleDateFormat("yyyy-MM-dd").format(dataFim);
+			
+			sql.append(" where l.dataInicial >= '").append(dataIniString).append("'");
+			sql.append(" and l.dataFinal <= '").append(dataFimString).append("'");
+			
+			
+		}else if (numNota != null && numNota.isEmpty()
+				&& dataIni != null && dataFim != null) {
+			
+			String dataIniString = new SimpleDateFormat("yyyy-MM-dd").format(dataIni);
+			String dataFimString = new SimpleDateFormat("yyyy-MM-dd").format(dataFim);
+			
+			sql.append(" where l.dataInicial >= '").append(dataIniString).append("'");
+			sql.append(" and l.dataFinal <= '").append(dataFimString).append("'");
+			sql.append(" and l.numeroNotaFiscal = '").append(numNota.trim()).append("'");
+			
+		}
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+
+		lancamentos = entityManager.createQuery(sql.toString()).getResultList();
+		transaction.commit();
+		return lancamentos;
 	}
 
 }
