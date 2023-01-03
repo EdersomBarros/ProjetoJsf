@@ -54,13 +54,13 @@
 
 			<b:column>
 				<h:outputLabel value="Idade:" />
-				<b:inputText value="#{pessoaBean.pessoa.idade}"
+				<b:inputText mask="numeric" value="#{pessoaBean.pessoa.idade}" 
 					pt:placeholder="Informe a idade" />
 			</b:column>
 
 			<b:column>
 				<h:outputLabel value="CPF:" />
-				<b:inputText value="#{pessoaBean.pessoa.cpf}"
+				<b:inputText value="#{pessoaBean.pessoa.cpf}" mask="999.999.999-99"
 					pt:placeholder="Informe o CPF" />
 			</b:column>
 
@@ -68,7 +68,7 @@
 			<b:column>
 				<h:outputLabel value="Título Eleit.:" />
 				<b:inputText value="#{pessoaBean.pessoa.tituloEleitor}"
-					pt:placeholder="Informe o Título de Eleitor" />
+					pt:placeholder="Informe o Título de Eleitor" mask="numeric" />
 			</b:column>
 
 			<b:column>
@@ -174,7 +174,7 @@
 
 			<b:column>
 				<h:outputLabel value="CEP:" />
-				<b:inputText value="#{pessoaBean.pessoa.cep}"
+				<b:inputText value="#{pessoaBean.pessoa.cep}" mask="99999-999"
 					pt:placeholder="Informe o CEP">
 					<f:ajax event="blur" execute="@form"
 						listener="#{pessoaBean.pesquisaCep}" render="@form" />
@@ -235,7 +235,7 @@
 
 	</h:form>
 
-	<h:form id="formTable">
+	<b:form id="formTable">
 		<b:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="3"
 			cellpadding="5" caption="Lista de Usuários Cadastrados">
 			
@@ -291,7 +291,7 @@
 			</h:column>
 
 		</b:dataTable>
-	</h:form>
+	</b:form>
 
 </h:body>
 
