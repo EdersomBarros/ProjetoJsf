@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Relatório de Usuários</title>
+</h:head>
+
+<h:body>
+	<ui:include src="/menu.xhtml" />
+
+	<b:form id="formUsuario">
+		<b:messages id="msg" />
+
+		<b:panelGrid columns="2">
+		
+		<b:column>
+			<h:outputText value="Data Inicial:"/>
+			<b:datepicker locale="en" value="#{relUsuario.dataInicio}"/>
+		</b:column>
+		<b:column>
+			<h:outputText value="Data Fim:"/>
+			<b:datepicker locale="en" value="#{relUsuario.dataFim}"/>
+		</b:column>
+		<b:column>
+			<h:outputText value="Nome:"/>
+			<b:iconAwesome value="shield" rotate="H" />
+			<b:inputText placeholder="Nome do Usuário" value="#{relUsuario.nome}"/>
+		</b:column>
+		
+		
+		</b:panelGrid>
+		
+			<b:commandButton value="Buscar"  look="success" 
+			action="#{relUsuario.relPessoa}"
+						 title="Buscar"
+						style="margin-left: 15px;"/>
+		
+	</b:form>
+	<br/>
+	<br/>
+	<br/>
+	<b:form>
+		<b:dataTable value="#{relUsuario.pessoas}" var="p"
+			border="3" pdf="true" excel="true">
+			
+			<b:dataTableColumn value="#{p.id}" order="asc"/>
+			<b:dataTableColumn value="#{p.nome}" label="Nome"/>
+
+		</b:dataTable>
+
+
+
+
+	</b:form>
+
+
+</h:body>
+</html>

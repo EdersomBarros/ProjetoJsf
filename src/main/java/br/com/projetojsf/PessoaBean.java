@@ -141,6 +141,7 @@ public class PessoaBean implements Serializable {
 		return "";
 	}
 
+	@SuppressWarnings("unchecked")
 	public void editar() {
 		if (pessoa.getCidades() != null) {
 
@@ -148,7 +149,7 @@ public class PessoaBean implements Serializable {
 			pessoa.setEstados(estado);
 
 			List<Cidades> cidades = jpaUtil.getEntityManager()
-					.createQuery("from Cidades where estados.id = " + estado.getId()).getResultList();
+					.createQuery(" from Cidades where estados.id = " + estado.getId()).getResultList();
 			List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
 			for (Cidades cidade : cidades) {
 				selectItemsCidade.add(new SelectItem(cidade, cidade.getNome()));
@@ -244,7 +245,7 @@ public class PessoaBean implements Serializable {
 	@PostConstruct
 	public void carregarPessoas() {
 
-		pessoas = daoGeneric.getListEntityLimit10(Pessoa.class);
+		pessoas = daoGeneric.getListEntity(Pessoa.class);
 
 	}
 
